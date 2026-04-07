@@ -1,5 +1,6 @@
 aid: microsoft-advertising
-url: https://raw.githubusercontent.com/api-evangelist/microsoft-advertising/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/microsoft-advertising/refs/heads/main/apis.yml
 apis:
   - aid: microsoft-advertising:campaign-management-api
     name: Microsoft Advertising Campaign Management API
@@ -7,11 +8,15 @@ apis:
       - Advertising
       - Campaigns
       - Bing Ads
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    baseURL: https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v13/
-    humanURL: https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: 
+      https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v13/
+    humanURL: 
+      https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference
     properties:
-      - url: https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference
+      - url: 
+          https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference
         type: Documentation
     description: >-
       The Microsoft Advertising Campaign Management API enables programmatic
@@ -25,11 +30,15 @@ apis:
       - Advertising
       - Reporting
       - Analytics
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    baseURL: https://reporting.api.bingads.microsoft.com/Api/Advertiser/Reporting/v13/
-    humanURL: https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: 
+      https://reporting.api.bingads.microsoft.com/Api/Advertiser/Reporting/v13/
+    humanURL: 
+      https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference
     properties:
-      - url: https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference
+      - url: 
+          https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference
         type: Documentation
     description: >-
       The Microsoft Advertising Reporting API provides access to performance
@@ -42,11 +51,15 @@ apis:
       - Advertising
       - Bulk Operations
       - Batch Processing
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    baseURL: https://bulk.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v13/
-    humanURL: https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: 
+      https://bulk.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v13/
+    humanURL: 
+      https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference
     properties:
-      - url: https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference
+      - url: 
+          https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference
         type: Documentation
     description: >-
       The Microsoft Advertising Bulk API enables efficient management of
@@ -62,7 +75,8 @@ common:
   - type: SDKs
     url: https://learn.microsoft.com/en-us/advertising/guides/client-libraries
   - type: Authentication
-    url: https://learn.microsoft.com/en-us/advertising/guides/authentication-oauth
+    url: 
+      https://learn.microsoft.com/en-us/advertising/guides/authentication-oauth
   - type: Terms of Service
     url: https://www.microsoft.com/en-us/legal/terms-of-use
   - type: Privacy Policy
@@ -73,3 +87,5 @@ modified: '2026-03-16'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+description: >-
+  Reference documentation for the Campaign Management API.
