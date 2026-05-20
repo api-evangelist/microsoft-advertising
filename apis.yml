@@ -74,6 +74,10 @@ apis:
       updating, and deleting campaigns, ad groups, ads, and keywords in
       a single request.
 common:
+  - type: GitHubOrganization
+    url: https://github.com/bingads
+  - type: LinkedIn
+    url: https://www.linkedin.com/showcase/microsoft-advertising
   - type: Portal
     url: https://ads.microsoft.com/
   - type: Developer Portal
