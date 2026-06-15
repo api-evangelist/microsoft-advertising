@@ -1,0 +1,1234 @@
+"""
+Microsoft Advertising (Bing Ads) GraphQL Schema
+Derived from the Microsoft Advertising REST/SOAP API surface covering
+campaign management, reporting, bulk operations, audiences, and bid strategies.
+"""
+
+# -----------------------------------------------------------------------
+# Scalars
+# -----------------------------------------------------------------------
+
+scalar DateTime
+scalar Long
+scalar Decimal
+
+# -----------------------------------------------------------------------
+# Enums
+# -----------------------------------------------------------------------
+
+enum CampaignStatus {
+  ACTIVE
+  PAUSED
+  BUDGET_PAUSED
+  DELETED
+  SUSPENDED
+}
+
+enum CampaignType {
+  SEARCH
+  SHOPPING
+  DISPLAY
+  SMART
+  PERFORMANCE_MAX
+  AUDIENCE
+  HOTEL
+  DYNAMIC_SEARCH_ADS
+}
+
+enum AdGroupStatus {
+  ACTIVE
+  PAUSED
+  DELETED
+  EXPIRED
+}
+
+enum AdStatus {
+  ACTIVE
+  PAUSED
+  DELETED
+  DISAPPROVED
+  UNDER_REVIEW
+}
+
+enum KeywordStatus {
+  ACTIVE
+  PAUSED
+  DELETED
+}
+
+enum BidMatchType {
+  BROAD
+  PHRASE
+  EXACT
+  BROAD_MATCH_MODIFIER
+}
+
+enum BudgetType {
+  DAILY_BUDGET_STANDARD
+  DAILY_BUDGET_ACCELERATED
+  MONTHLY_BUDGET_SPEND_UNTIL_DEPLETED
+}
+
+enum BiddingSchemeType {
+  MANUAL_CPC
+  ENHANCED_CPC
+  TARGET_CPA
+  TARGET_ROAS
+  MAXIMIZE_CLICKS
+  MAXIMIZE_CONVERSIONS
+  TARGET_IMPRESSION_SHARE
+}
+
+enum AdType {
+  TEXT
+  IMAGE
+  PRODUCT
+  EXPANDED_TEXT
+  RESPONSIVE_SEARCH
+  RESPONSIVE_DISPLAY
+  APP_INSTALL
+  DYNAMIC_SEARCH
+  HOTEL
+}
+
+enum DeviceType {
+  COMPUTERS
+  SMARTPHONES
+  TABLETS
+  ALL
+}
+
+enum AudienceType {
+  REMARKETING_LIST
+  CUSTOM_AUDIENCE
+  PRODUCT_AUDIENCE
+  SIMILAR_REMARKETING_LIST
+  IN_MARKET
+  CUSTOMER_MATCH
+  COMBINED
+}
+
+enum ExtensionType {
+  SITELINK
+  CALL
+  CALLOUT
+  STRUCTURED_SNIPPET
+  LOCATION
+  IMAGE
+  PRICE
+  APP
+  REVIEW
+  PROMOTION
+}
+
+enum ReportAggregation {
+  SUMMARY
+  HOURLY
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum ReportStatus {
+  PENDING
+  IN_PROGRESS
+  SUCCESS
+  ERROR
+  EXPIRED
+}
+
+enum NetworkType {
+  OWNED_AND_OPERATED_WITH_PARTNER_DEMAND
+  OWNED_AND_OPERATED_ONLY
+  SYNDICATED_SEARCH_PARTNER_ONLY
+  COMBINED
+}
+
+enum DeliveryStatus {
+  CONVERTING
+  CONVERTED
+  ELIGIBLE
+  PAUSED
+  REMOVED
+  LIMITED
+  NOT_ELIGIBLE
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  PAUSED
+  PENDING
+  SUSPENDED
+}
+
+enum CurrencyCode {
+  USD
+  EUR
+  GBP
+  CAD
+  AUD
+  JPY
+  CNY
+}
+
+enum TargetingDistribution {
+  BID_BOOST_ONLY
+  TARGET_AND_BID
+}
+
+enum BulkOperationStatus {
+  NOT_STARTED
+  ACTIVE
+  COMPLETED
+  FAILED
+  TIMED_OUT
+  CANCELLED
+  EXPIRED
+}
+
+# -----------------------------------------------------------------------
+# Core resource types
+# -----------------------------------------------------------------------
+
+type Account {
+  id: ID!
+  name: String!
+  status: AccountStatus!
+  currencyCode: CurrencyCode!
+  timeZone: String!
+  customerId: ID!
+  number: String
+  autoTag: Boolean
+  backOfficeServerId: String
+  businessName: String
+  paymentMethodId: ID
+  primaryUserId: ID
+  salesHouseCustomerId: ID
+  taxInformation: TaxInformation
+  created: DateTime!
+  modified: DateTime!
+  campaigns(first: Int, after: String, status: CampaignStatus): CampaignConnection!
+  audiences(first: Int, after: String): AudienceConnection!
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  industry: String
+  market: String
+  serviceLevel: String
+  accounts(first: Int, after: String): AccountConnection!
+  created: DateTime!
+  modified: DateTime!
+}
+
+type TaxInformation {
+  taxIdNumber: String
+  taxType: String
+  vatNumber: String
+}
+
+type Campaign {
+  id: ID!
+  name: String!
+  status: CampaignStatus!
+  type: CampaignType!
+  budget: Budget!
+  biddingScheme: BiddingScheme!
+  targetNetwork: NetworkType
+  timeZone: String
+  trackingUrlTemplate: String
+  urlCustomParameters: [CustomParameter!]
+  startDate: DateTime
+  endDate: DateTime
+  languages: [String!]
+  experimentId: ID
+  shoppingSettings: ShoppingSettings
+  dynamicSearchAdsSetting: DynamicSearchAdsSetting
+  accountId: ID!
+  adGroups(first: Int, after: String, status: AdGroupStatus): AdGroupConnection!
+  extensions(first: Int, after: String): ExtensionConnection!
+  criterions(first: Int, after: String): CriterionConnection!
+  created: DateTime!
+  modified: DateTime!
+}
+
+type Budget {
+  id: ID!
+  name: String
+  amount: Decimal!
+  budgetType: BudgetType!
+  associationCount: Int
+}
+
+type BiddingScheme {
+  type: BiddingSchemeType!
+  targetCpa: Decimal
+  targetRoas: Decimal
+  targetImpressionShare: Decimal
+  targetImpressionShareLocation: String
+  maxCpc: Decimal
+  minTargetCpa: Decimal
+  maxTargetCpa: Decimal
+}
+
+type ShoppingSettings {
+  merchantId: Long
+  salesCountryCode: String
+  campaignPriority: Int
+  enableLocal: Boolean
+}
+
+type DynamicSearchAdsSetting {
+  domainName: String!
+  language: String!
+  pageFeedIds: [Long!]
+  source: String
+}
+
+type AdGroup {
+  id: ID!
+  name: String!
+  status: AdGroupStatus!
+  campaignId: ID!
+  startDate: DateTime
+  endDate: DateTime
+  cpcBid: Decimal
+  cpmBid: Decimal
+  cpvBid: Decimal
+  language: String
+  networkType: NetworkType
+  trackingUrlTemplate: String
+  urlCustomParameters: [CustomParameter!]
+  ads(first: Int, after: String, status: AdStatus): AdConnection!
+  keywords(first: Int, after: String, status: KeywordStatus): KeywordConnection!
+  criterions(first: Int, after: String): CriterionConnection!
+  audienceAssociations(first: Int, after: String): AudienceAssociationConnection!
+  created: DateTime!
+  modified: DateTime!
+}
+
+type Ad {
+  id: ID!
+  type: AdType!
+  status: AdStatus!
+  adGroupId: ID!
+  finalUrls: [String!]
+  finalMobileUrls: [String!]
+  trackingUrlTemplate: String
+  urlCustomParameters: [CustomParameter!]
+  editorialStatus: String
+  disapprovalReasons: [String!]
+  expandedTextAd: ExpandedTextAd
+  responsiveSearchAd: ResponsiveSearchAd
+  responsiveDisplayAd: ResponsiveDisplayAd
+  productAd: ProductAd
+  appInstallAd: AppInstallAd
+  created: DateTime!
+  modified: DateTime!
+}
+
+type ExpandedTextAd {
+  titlePart1: String!
+  titlePart2: String!
+  titlePart3: String
+  text: String!
+  textPart2: String
+  displayUrl: String
+  path1: String
+  path2: String
+}
+
+type ResponsiveSearchAd {
+  headlines: [AssetLink!]!
+  descriptions: [AssetLink!]!
+  path1: String
+  path2: String
+}
+
+type ResponsiveDisplayAd {
+  headlines: [AssetLink!]!
+  descriptions: [AssetLink!]!
+  longHeadline: AssetLink
+  businessName: String!
+  images: [ImageAsset!]!
+  logoImages: [ImageAsset!]
+}
+
+type ProductAd {
+  promotionalText: String
+}
+
+type AppInstallAd {
+  appId: String!
+  appPlatform: String!
+  text: String!
+  title: String!
+}
+
+type AssetLink {
+  asset: TextAsset!
+  pinnedField: String
+  assetPerformanceLabel: String
+}
+
+type TextAsset {
+  id: ID!
+  text: String!
+}
+
+type ImageAsset {
+  id: ID!
+  assetId: Long
+  cropHeight: Int
+  cropWidth: Int
+  cropX: Int
+  cropY: Int
+  subType: String
+}
+
+type Keyword {
+  id: ID!
+  text: String!
+  status: KeywordStatus!
+  matchType: BidMatchType!
+  adGroupId: ID!
+  bid: Decimal
+  destinationUrl: String
+  finalUrls: [String!]
+  trackingUrlTemplate: String
+  urlCustomParameters: [CustomParameter!]
+  editorialStatus: String
+  deliveryStatus: DeliveryStatus
+  created: DateTime!
+  modified: DateTime!
+}
+
+type NegativeKeyword {
+  id: ID!
+  text: String!
+  matchType: BidMatchType!
+  listId: ID
+  campaignId: ID
+  adGroupId: ID
+}
+
+type NegativeKeywordList {
+  id: ID!
+  name: String!
+  associationCount: Int
+  keywords(first: Int, after: String): NegativeKeywordConnection!
+}
+
+type Audience {
+  id: ID!
+  name: String!
+  type: AudienceType!
+  description: String
+  membershipDuration: Int
+  scope: String
+  tagId: ID
+  created: DateTime!
+  modified: DateTime!
+}
+
+type AudienceAssociation {
+  audienceId: ID!
+  associationId: ID!
+  targetingDistribution: TargetingDistribution!
+  bidAdjustment: Decimal
+  status: AdGroupStatus!
+}
+
+type Extension {
+  id: ID!
+  type: ExtensionType!
+  status: AdStatus!
+  scheduling: AdSchedule
+  sitelinkExtension: SitelinkExtension
+  callExtension: CallExtension
+  calloutExtension: CalloutExtension
+  structuredSnippetExtension: StructuredSnippetExtension
+  locationExtension: LocationExtension
+  imageExtension: ImageExtension
+  priceExtension: PriceExtension
+  promotionExtension: PromotionExtension
+}
+
+type SitelinkExtension {
+  description1: String
+  description2: String
+  displayText: String!
+  finalUrls: [String!]!
+  trackingUrlTemplate: String
+}
+
+type CallExtension {
+  phoneNumber: String!
+  countryCode: String!
+  isCallOnly: Boolean
+  isCallTrackingEnabled: Boolean
+  requireTollFreeTrackingNumber: Boolean
+}
+
+type CalloutExtension {
+  text: String!
+}
+
+type StructuredSnippetExtension {
+  header: String!
+  values: [String!]!
+}
+
+type LocationExtension {
+  addressLine1: String
+  addressLine2: String
+  city: String
+  stateOrProvinceCode: String
+  postalCode: String
+  countryCode: String!
+  phoneNumber: String
+  businessName: String!
+  geoCodeStatus: String
+  iconMediaId: Long
+  imageMediaId: Long
+}
+
+type ImageExtension {
+  imageMediaId: Long!
+  finalUrls: [String!]!
+  displayText: String
+}
+
+type PriceExtension {
+  tableRows: [PriceTableRow!]!
+  currencyCode: CurrencyCode!
+  language: String!
+  priceQualifier: String
+  type: String!
+}
+
+type PriceTableRow {
+  currencyCode: CurrencyCode!
+  description: String!
+  finalUrls: [String!]!
+  header: String!
+  price: Decimal!
+  priceUnit: String
+  unit: String
+}
+
+type PromotionExtension {
+  currencyCode: CurrencyCode!
+  discountModifier: String
+  finalUrls: [String!]!
+  language: String!
+  moneyAmountOff: Decimal
+  occasionType: String
+  ordersOverAmount: Decimal
+  percentOff: Decimal
+  promotionCode: String
+  promotionEndDate: DateTime
+  promotionItem: String!
+  promotionStartDate: DateTime
+}
+
+type AdSchedule {
+  dayTimeRanges: [DayTimeRange!]
+  endDate: DateTime
+  startDate: DateTime
+  useSearcherTimeZone: Boolean
+}
+
+type DayTimeRange {
+  day: String!
+  endHour: Int!
+  endMinute: Int!
+  startHour: Int!
+  startMinute: Int!
+}
+
+type Criterion {
+  id: ID!
+  type: String!
+  status: String!
+  bidAdjustment: Decimal
+  locationCriterion: LocationCriterion
+  ageCriterion: AgeCriterion
+  genderCriterion: GenderCriterion
+  deviceCriterion: DeviceCriterion
+  dayTimeCriterion: DayTimeCriterion
+  productScope: ProductScope
+}
+
+type LocationCriterion {
+  locationId: Long!
+  locationType: String
+  displayName: String
+}
+
+type AgeCriterion {
+  ageRange: String!
+}
+
+type GenderCriterion {
+  genderType: String!
+}
+
+type DeviceCriterion {
+  deviceType: DeviceType!
+  osName: String
+}
+
+type DayTimeCriterion {
+  day: String!
+  fromHour: Int
+  fromMinute: Int
+  toHour: Int
+  toMinute: Int
+}
+
+type ProductScope {
+  conditions: [ProductCondition!]!
+}
+
+type ProductCondition {
+  attribute: String!
+  operand: String!
+}
+
+type CustomParameter {
+  key: String!
+  value: String!
+}
+
+type UETTag {
+  id: ID!
+  name: String!
+  description: String
+  customEventsEnabled: Boolean
+  trackingNoScript: String
+  trackingScript: String!
+  trackingStatus: String
+}
+
+type ConversionGoal {
+  id: ID!
+  name: String!
+  type: String!
+  status: String!
+  countType: String
+  tagId: ID
+  revenue: ConversionGoalRevenue
+  scope: String
+  conversionWindowInMinutes: Int
+  created: DateTime!
+  modified: DateTime!
+}
+
+type ConversionGoalRevenue {
+  currencyCode: CurrencyCode
+  type: String!
+  value: Decimal
+}
+
+type ReportRequest {
+  id: ID!
+  reportName: String!
+  status: ReportStatus!
+  aggregation: ReportAggregation!
+  columns: [String!]!
+  filter: ReportFilter
+  scope: ReportScope!
+  time: ReportTime!
+  format: String
+  downloadUrl: String
+  created: DateTime!
+  modified: DateTime!
+}
+
+type ReportFilter {
+  accountStatus: [AccountStatus!]
+  adGroupStatus: [AdGroupStatus!]
+  adStatus: [AdStatus!]
+  campaignStatus: [CampaignStatus!]
+  keywordStatus: [KeywordStatus!]
+  deviceType: [DeviceType!]
+}
+
+type ReportScope {
+  accountIds: [Long!]
+  campaignIds: [Long!]
+  adGroupIds: [Long!]
+}
+
+type ReportTime {
+  customDateRangeEnd: DateTime
+  customDateRangeStart: DateTime
+  predefinedTime: String
+  reportTimeZone: String
+}
+
+type PerformanceMetrics {
+  impressions: Long
+  clicks: Long
+  ctr: Decimal
+  averageCpc: Decimal
+  spend: Decimal
+  conversions: Long
+  conversionRate: Decimal
+  costPerConversion: Decimal
+  revenue: Decimal
+  roas: Decimal
+  qualityScore: Decimal
+  averagePosition: Decimal
+}
+
+type BulkOperation {
+  id: ID!
+  status: BulkOperationStatus!
+  type: String!
+  percentComplete: Int
+  resultFileUrl: String
+  errors: [BulkOperationError!]
+  created: DateTime!
+  modified: DateTime!
+}
+
+type BulkOperationError {
+  code: Int!
+  message: String!
+  details: String
+}
+
+type Label {
+  id: ID!
+  name: String!
+  description: String
+  colorCode: String
+  created: DateTime!
+  modified: DateTime!
+}
+
+type SharedNegativeKeywordList {
+  id: ID!
+  name: String!
+  associationCount: Int
+  keywords(first: Int, after: String): NegativeKeywordConnection!
+}
+
+# -----------------------------------------------------------------------
+# Connection / pagination types
+# -----------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type AccountConnection {
+  edges: [AccountEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type AccountEdge {
+  node: Account!
+  cursor: String!
+}
+
+type CampaignConnection {
+  edges: [CampaignEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type CampaignEdge {
+  node: Campaign!
+  cursor: String!
+}
+
+type AdGroupConnection {
+  edges: [AdGroupEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type AdGroupEdge {
+  node: AdGroup!
+  cursor: String!
+}
+
+type AdConnection {
+  edges: [AdEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type AdEdge {
+  node: Ad!
+  cursor: String!
+}
+
+type KeywordConnection {
+  edges: [KeywordEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type KeywordEdge {
+  node: Keyword!
+  cursor: String!
+}
+
+type NegativeKeywordConnection {
+  edges: [NegativeKeywordEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type NegativeKeywordEdge {
+  node: NegativeKeyword!
+  cursor: String!
+}
+
+type AudienceConnection {
+  edges: [AudienceEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type AudienceEdge {
+  node: Audience!
+  cursor: String!
+}
+
+type AudienceAssociationConnection {
+  edges: [AudienceAssociationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type AudienceAssociationEdge {
+  node: AudienceAssociation!
+  cursor: String!
+}
+
+type ExtensionConnection {
+  edges: [ExtensionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ExtensionEdge {
+  node: Extension!
+  cursor: String!
+}
+
+type CriterionConnection {
+  edges: [CriterionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type CriterionEdge {
+  node: Criterion!
+  cursor: String!
+}
+
+type LabelConnection {
+  edges: [LabelEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type LabelEdge {
+  node: Label!
+  cursor: String!
+}
+
+type ConversionGoalConnection {
+  edges: [ConversionGoalEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ConversionGoalEdge {
+  node: ConversionGoal!
+  cursor: String!
+}
+
+type ReportRequestConnection {
+  edges: [ReportRequestEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ReportRequestEdge {
+  node: ReportRequest!
+  cursor: String!
+}
+
+# -----------------------------------------------------------------------
+# Input types
+# -----------------------------------------------------------------------
+
+input CreateCampaignInput {
+  accountId: ID!
+  name: String!
+  type: CampaignType!
+  budgetAmount: Decimal!
+  budgetType: BudgetType!
+  biddingSchemeType: BiddingSchemeType!
+  targetCpa: Decimal
+  targetRoas: Decimal
+  languages: [String!]
+  trackingUrlTemplate: String
+  startDate: DateTime
+  endDate: DateTime
+}
+
+input UpdateCampaignInput {
+  id: ID!
+  name: String
+  status: CampaignStatus
+  budgetAmount: Decimal
+  budgetType: BudgetType
+  biddingSchemeType: BiddingSchemeType
+  targetCpa: Decimal
+  targetRoas: Decimal
+  languages: [String!]
+  trackingUrlTemplate: String
+  startDate: DateTime
+  endDate: DateTime
+}
+
+input CreateAdGroupInput {
+  campaignId: ID!
+  name: String!
+  cpcBid: Decimal
+  language: String
+  startDate: DateTime
+  endDate: DateTime
+  trackingUrlTemplate: String
+}
+
+input UpdateAdGroupInput {
+  id: ID!
+  name: String
+  status: AdGroupStatus
+  cpcBid: Decimal
+  startDate: DateTime
+  endDate: DateTime
+  trackingUrlTemplate: String
+}
+
+input CreateKeywordInput {
+  adGroupId: ID!
+  text: String!
+  matchType: BidMatchType!
+  bid: Decimal
+  finalUrls: [String!]
+  trackingUrlTemplate: String
+}
+
+input UpdateKeywordInput {
+  id: ID!
+  status: KeywordStatus
+  bid: Decimal
+  finalUrls: [String!]
+  trackingUrlTemplate: String
+}
+
+input CreateResponsiveSearchAdInput {
+  adGroupId: ID!
+  headlines: [AssetLinkInput!]!
+  descriptions: [AssetLinkInput!]!
+  finalUrls: [String!]!
+  path1: String
+  path2: String
+  trackingUrlTemplate: String
+}
+
+input AssetLinkInput {
+  text: String!
+  pinnedField: String
+}
+
+input CreateExpandedTextAdInput {
+  adGroupId: ID!
+  titlePart1: String!
+  titlePart2: String!
+  titlePart3: String
+  text: String!
+  textPart2: String
+  path1: String
+  path2: String
+  finalUrls: [String!]!
+  trackingUrlTemplate: String
+}
+
+input CreateAudienceInput {
+  accountId: ID!
+  name: String!
+  type: AudienceType!
+  description: String
+  membershipDuration: Int
+  tagId: ID
+}
+
+input UpdateAudienceInput {
+  id: ID!
+  name: String
+  description: String
+  membershipDuration: Int
+}
+
+input CreateBudgetInput {
+  accountId: ID!
+  name: String!
+  amount: Decimal!
+  budgetType: BudgetType!
+}
+
+input UpdateBudgetInput {
+  id: ID!
+  name: String
+  amount: Decimal
+  budgetType: BudgetType
+}
+
+input CreateLabelInput {
+  accountId: ID!
+  name: String!
+  description: String
+  colorCode: String
+}
+
+input UpdateLabelInput {
+  id: ID!
+  name: String
+  description: String
+  colorCode: String
+}
+
+input CriterionInput {
+  type: String!
+  bidAdjustment: Decimal
+  locationId: Long
+  ageRange: String
+  genderType: String
+  deviceType: DeviceType
+  day: String
+  fromHour: Int
+  fromMinute: Int
+  toHour: Int
+  toMinute: Int
+}
+
+input ReportRequestInput {
+  accountId: ID!
+  reportName: String!
+  aggregation: ReportAggregation!
+  columns: [String!]!
+  predefinedTime: String
+  startDate: DateTime
+  endDate: DateTime
+  campaignIds: [Long!]
+  adGroupIds: [Long!]
+  format: String
+}
+
+input BulkDownloadInput {
+  accountId: ID!
+  campaignIds: [Long!]
+  downloadEntities: [String!]!
+  formatVersion: String
+  lastSyncTimeInUTC: DateTime
+}
+
+input BulkUploadInput {
+  accountId: ID!
+  responseMode: String
+  uploadUrl: String!
+}
+
+input NegativeKeywordInput {
+  text: String!
+  matchType: BidMatchType!
+}
+
+input AudienceAssociationInput {
+  audienceId: ID!
+  targetingDistribution: TargetingDistribution!
+  bidAdjustment: Decimal
+}
+
+input CreateConversionGoalInput {
+  accountId: ID!
+  name: String!
+  type: String!
+  countType: String
+  tagId: ID
+  revenueType: String
+  revenueValue: Decimal
+  revenueCurrencyCode: CurrencyCode
+  conversionWindowInMinutes: Int
+}
+
+input CreateUETTagInput {
+  accountId: ID!
+  name: String!
+  description: String
+  customEventsEnabled: Boolean
+}
+
+# -----------------------------------------------------------------------
+# Query root
+# -----------------------------------------------------------------------
+
+type Query {
+  # Account / Customer
+  customer(id: ID!): Customer
+  account(id: ID!): Account
+  accounts(customerId: ID!, first: Int, after: String, status: AccountStatus): AccountConnection!
+
+  # Campaigns
+  campaign(id: ID!): Campaign
+  campaigns(accountId: ID!, first: Int, after: String, status: CampaignStatus, type: CampaignType): CampaignConnection!
+
+  # Ad Groups
+  adGroup(id: ID!): AdGroup
+  adGroups(campaignId: ID!, first: Int, after: String, status: AdGroupStatus): AdGroupConnection!
+
+  # Ads
+  ad(id: ID!): Ad
+  ads(adGroupId: ID!, first: Int, after: String, status: AdStatus, type: AdType): AdConnection!
+
+  # Keywords
+  keyword(id: ID!): Keyword
+  keywords(adGroupId: ID!, first: Int, after: String, status: KeywordStatus, matchType: BidMatchType): KeywordConnection!
+
+  # Negative Keywords
+  negativeKeywordList(id: ID!): NegativeKeywordList
+  negativeKeywordLists(accountId: ID!, first: Int, after: String): [NegativeKeywordList!]!
+
+  # Audiences
+  audience(id: ID!): Audience
+  audiences(accountId: ID!, first: Int, after: String, type: AudienceType): AudienceConnection!
+
+  # Extensions
+  extension(id: ID!): Extension
+  extensions(accountId: ID!, first: Int, after: String, type: ExtensionType): ExtensionConnection!
+
+  # Budgets
+  budget(id: ID!): Budget
+  budgets(accountId: ID!): [Budget!]!
+
+  # Labels
+  labels(accountId: ID!, first: Int, after: String): LabelConnection!
+
+  # Conversion Goals & UET
+  conversionGoal(id: ID!): ConversionGoal
+  conversionGoals(accountId: ID!, first: Int, after: String): ConversionGoalConnection!
+  uetTag(id: ID!): UETTag
+  uetTags(accountId: ID!): [UETTag!]!
+
+  # Reporting
+  reportRequest(id: ID!): ReportRequest
+  reportRequests(accountId: ID!, first: Int, after: String, status: ReportStatus): ReportRequestConnection!
+
+  # Bulk
+  bulkOperation(id: ID!): BulkOperation
+
+  # Performance (inline quick metrics)
+  campaignPerformance(campaignId: ID!, startDate: DateTime!, endDate: DateTime!): PerformanceMetrics
+  adGroupPerformance(adGroupId: ID!, startDate: DateTime!, endDate: DateTime!): PerformanceMetrics
+  keywordPerformance(keywordId: ID!, startDate: DateTime!, endDate: DateTime!): PerformanceMetrics
+}
+
+# -----------------------------------------------------------------------
+# Mutation root
+# -----------------------------------------------------------------------
+
+type Mutation {
+  # Campaigns
+  createCampaign(input: CreateCampaignInput!): Campaign!
+  updateCampaign(input: UpdateCampaignInput!): Campaign!
+  deleteCampaign(id: ID!): Boolean!
+
+  # Ad Groups
+  createAdGroup(input: CreateAdGroupInput!): AdGroup!
+  updateAdGroup(input: UpdateAdGroupInput!): AdGroup!
+  deleteAdGroup(id: ID!): Boolean!
+
+  # Ads
+  createResponsiveSearchAd(input: CreateResponsiveSearchAdInput!): Ad!
+  createExpandedTextAd(input: CreateExpandedTextAdInput!): Ad!
+  updateAdStatus(id: ID!, status: AdStatus!): Ad!
+  deleteAd(id: ID!): Boolean!
+
+  # Keywords
+  createKeyword(input: CreateKeywordInput!): Keyword!
+  updateKeyword(input: UpdateKeywordInput!): Keyword!
+  deleteKeyword(id: ID!): Boolean!
+
+  # Negative Keywords
+  addNegativeKeywordsToList(listId: ID!, keywords: [NegativeKeywordInput!]!): NegativeKeywordList!
+  removeNegativeKeywordsFromList(listId: ID!, keywordIds: [ID!]!): Boolean!
+  associateNegativeKeywordListToCampaign(listId: ID!, campaignId: ID!): Boolean!
+  disassociateNegativeKeywordListFromCampaign(listId: ID!, campaignId: ID!): Boolean!
+
+  # Audiences
+  createAudience(input: CreateAudienceInput!): Audience!
+  updateAudience(input: UpdateAudienceInput!): Audience!
+  deleteAudience(id: ID!): Boolean!
+  associateAudienceToAdGroup(adGroupId: ID!, input: AudienceAssociationInput!): AudienceAssociation!
+  removeAudienceFromAdGroup(adGroupId: ID!, audienceId: ID!): Boolean!
+
+  # Extensions
+  associateExtensionToCampaign(extensionId: ID!, campaignId: ID!): Boolean!
+  disassociateExtensionFromCampaign(extensionId: ID!, campaignId: ID!): Boolean!
+  associateExtensionToAdGroup(extensionId: ID!, adGroupId: ID!): Boolean!
+
+  # Budgets
+  createBudget(input: CreateBudgetInput!): Budget!
+  updateBudget(input: UpdateBudgetInput!): Budget!
+  deleteBudget(id: ID!): Boolean!
+
+  # Criterions / Targeting
+  addCriterionToCampaign(campaignId: ID!, input: CriterionInput!): Criterion!
+  updateCampaignCriterion(criterionId: ID!, campaignId: ID!, bidAdjustment: Decimal): Criterion!
+  deleteCampaignCriterion(criterionId: ID!, campaignId: ID!): Boolean!
+  addCriterionToAdGroup(adGroupId: ID!, input: CriterionInput!): Criterion!
+  updateAdGroupCriterion(criterionId: ID!, adGroupId: ID!, bidAdjustment: Decimal): Criterion!
+  deleteAdGroupCriterion(criterionId: ID!, adGroupId: ID!): Boolean!
+
+  # Labels
+  createLabel(input: CreateLabelInput!): Label!
+  updateLabel(input: UpdateLabelInput!): Label!
+  deleteLabel(id: ID!): Boolean!
+  applyLabelToCampaign(labelId: ID!, campaignId: ID!): Boolean!
+  applyLabelToAdGroup(labelId: ID!, adGroupId: ID!): Boolean!
+  applyLabelToAd(labelId: ID!, adId: ID!): Boolean!
+  applyLabelToKeyword(labelId: ID!, keywordId: ID!): Boolean!
+
+  # Conversion Goals & UET
+  createConversionGoal(input: CreateConversionGoalInput!): ConversionGoal!
+  updateConversionGoalStatus(id: ID!, status: String!): ConversionGoal!
+  deleteConversionGoal(id: ID!): Boolean!
+  createUETTag(input: CreateUETTagInput!): UETTag!
+  deleteUETTag(id: ID!): Boolean!
+
+  # Reporting
+  submitReportRequest(input: ReportRequestInput!): ReportRequest!
+  cancelReportRequest(id: ID!): Boolean!
+
+  # Bulk
+  submitBulkDownload(input: BulkDownloadInput!): BulkOperation!
+  submitBulkUpload(input: BulkUploadInput!): BulkOperation!
+}
