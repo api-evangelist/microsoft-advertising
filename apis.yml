@@ -75,7 +75,7 @@ common:
   url: https://www.linkedin.com/showcase/microsoft-advertising
 - type: Portal
   url: https://ads.microsoft.com/
-- type: Developer Portal
+- type: DeveloperPortal
   url: https://learn.microsoft.com/en-us/advertising/
 - type: SDKs
   url: https://learn.microsoft.com/en-us/advertising/guides/client-libraries
