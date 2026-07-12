@@ -69,6 +69,10 @@ apis:
     It supports CSV-based bulk operations for creating, updating, and deleting campaigns,
     ad groups, ads, and keywords in a single request.
 common:
+- type: VulnerabilityDisclosure
+  url: security/microsoft-advertising-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/microsoft-advertising-domain-security.yml
 - type: GitHubOrganization
   url: https://github.com/bingads
 - type: LinkedIn
@@ -87,6 +91,8 @@ common:
   url: https://privacy.microsoft.com/en-us/privacystatement
 - type: Support
   url: https://support.microsoft.com/
+- type: Blog
+  url: https://about.ads.microsoft.com/en-us/blog/rss
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
