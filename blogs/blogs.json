@@ -5,7 +5,7 @@
       "source": "https://about.ads.microsoft.com/en-us/blog/rss",
       "feed_url": "https://about.ads.microsoft.com/en-us/blog/rss",
       "title": "",
-      "saved": 0,
+      "saved": 1,
       "method": "feed"
     },
     {
@@ -13,9 +13,10 @@
       "feed_url": "https://support.microsoft.com/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "none",
+      "error": "parse_failed"
     }
   ],
-  "fetched": "2026-08-06T14:08:46Z",
-  "post_count": 9
+  "fetched": "2026-08-15T12:11:08Z",
+  "post_count": 10
 }
