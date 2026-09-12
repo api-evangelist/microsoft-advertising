@@ -92,6 +92,8 @@ apis:
     It supports CSV-based bulk operations for creating, updating, and deleting campaigns,
     ad groups, ads, and keywords in a single request.
 common:
+- type: Website
+  url: https://www.microsoft.com/
 - type: VulnerabilityDisclosure
   url: security/microsoft-advertising-vulnerability-disclosure.yml
 - type: DomainSecurity
@@ -120,3 +122,5 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com
+x-parent: microsoft
+x-relationship: product
