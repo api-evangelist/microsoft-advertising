@@ -53,8 +53,6 @@ apis:
   properties:
   - url: https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference
     type: Documentation
-  - url: graphql/microsoft-advertising-graphql.md
-    type: GraphQL
   description: The Microsoft Advertising Campaign Management API enables programmatic
     management of advertising campaigns, ad groups, ads, keywords, and targeting.
     Developers can create and modify campaign structures, set bids and budgets, manage
