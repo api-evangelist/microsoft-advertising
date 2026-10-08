@@ -90,6 +90,12 @@ apis:
     It supports CSV-based bulk operations for creating, updating, and deleting campaigns,
     ad groups, ads, and keywords in a single request.
 common:
+- type: Plans
+  url: plans/microsoft-advertising-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/microsoft-advertising-rate-limits.yml
+- type: FinOps
+  url: finops/microsoft-advertising-finops.yml
 - type: Website
   url: https://www.microsoft.com/
 - type: VulnerabilityDisclosure
