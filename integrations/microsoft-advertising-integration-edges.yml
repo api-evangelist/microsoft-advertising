@@ -3,6 +3,7 @@ method: searched
 checked:
 - https://fivetran.com/docs/activations/destinations/available-destinations/microsoft-advertising
 - https://vendor-list.consensu.org/v3/vendor-list.json
+- https://zapier.com/api/v4/apps/
 marketplace_apps: []
 edges:
 - partner_name: Census
@@ -64,4 +65,29 @@ edges:
     - OM SDK
   detected_by: sweep-adtech.py
   detected: '2026-10-14'
+- partner_name: Zapier
+  partner: zapier
+  partner_match: aggregator
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://zapier.com/apps/microsoft-advertising/integrations
+  category: null
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: Microsoft Advertising
+    matched_domain: microsoft.com
+    matched_by: domain+name-among-holders
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: microsoft-advertising
+    beta: false
+    builder: unknown (not in the directory record)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 source: https://fivetran.com/docs/activations/destinations/available-destinations/microsoft-advertising
