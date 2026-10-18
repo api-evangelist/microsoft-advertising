@@ -104,5 +104,5 @@
     - connectors/applications/microsoft-advertising
     vendor_link: https://bingads.microsoft.com/
     builder: Fivetran
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
