@@ -8,25 +8,6 @@ checked:
 - https://zapier.com/api/v4/apps/
 marketplace_apps: []
 edges:
-- partner_name: Census
-  partner: getcensus
-  partner_match: aggregator
-  marketplace: coverage
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
-  evidence: https://fivetran.com/docs/activations/destinations/available-destinations/microsoft-advertising
-  coverage_role:
-  - destination
-  cdp_signals:
-    destination:
-      catalog_entries:
-      - microsoft-advertising
-      sync_behaviours:
-      - mirror
-  detected_by: sweep-cdp.py
-  first_seen: '2026-10-14'
 - partner_name: IAB Europe TCF Global Vendor List
   partner: null
   partner_match: domain+product
@@ -92,6 +73,25 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Census
+  partner: getcensus
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://fivetran.com/docs/activations/destinations/available-destinations/microsoft-advertising
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - microsoft-advertising
+      sync_behaviours:
+      - mirror
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 - partner_name: Fivetran
   partner: fivetran
   partner_match: aggregator
