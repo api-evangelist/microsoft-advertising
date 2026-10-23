@@ -6,6 +6,10 @@ checked:
 - https://fivetran.com/docs/connectors/partner-built-program
 - https://vendor-list.consensu.org/v3/vendor-list.json
 - https://zapier.com/api/v4/apps/
+- https://hubgloo.opxar.com/search
+- https://www.tagtoday.net/certifications
+- https://www.tagtoday.net/registry
+- https://www.tagtoday.net/registry-search/
 marketplace_apps: []
 edges:
 - partner_name: IAB Europe TCF Global Vendor List
@@ -118,4 +122,89 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: TAG Registry (Trustworthy Accountability Group)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.tagtoday.net/registry
+  category: Ad fraud / brand safety certification (TAG)
+  contract_reference:
+    register: TAG Registry (tagtoday.net/registry; registry-search public endpoint)
+    spec_file: null
+    standard: TAG certification programs (Trustworthy Accountability Group)
+    role: tag-certified
+    registrations:
+    - registered_name: Microsoft Advertising
+      register_id: https://hubgloo.opxar.com/company/389673850
+      verified_by_tag: true
+      seals: []
+      matched_domain: microsoft.com
+      matched_by: domain+name-among-holders
+      other_names:
+      - Microsoft Corp d/b/a Microsoft Advertising
+      identity: wikidata Q3050191 'Microsoft Advertising' P856 https://about.ads.microsoft.com/en-us
+    - registered_name: Microsoft Advertising (Invest, Monetize)
+      register_id: https://hubgloo.opxar.com/company/1033132461
+      verified_by_tag: true
+      seals:
+      - Brand Safety Certified
+      - Certified Against Malvertising
+      - Certified For Transparency
+      - Certified Against Fraud
+      matched_domain: microsoft.com
+      matched_by: domain+name-among-holders
+      other_names:
+      - AppNexus
+      identity: wikidata Q3050191 'Microsoft Advertising' P856 https://about.ads.microsoft.com/en-us
+    signal_note: certified_products = one entry per TAG seal held (CAF, BSC, CAM, CAP, CFT), never per registration;
+      validation route (third-party auditor / TAG Validation / self-attestation) and category are context. The registry
+      shows current seals only and marks none expired, so lapsed is false. Verified by TAG with no seal = listing
+      only (participation)
+    detected_by: sweep-tag-certified-ad-fraud.py
+    detected: '2026-10-23'
+    certified_products:
+    - product: Brand Safety Certified
+      product_type: Brand Safety Certified
+      standard: TAG Brand Safety Certified (BSC)
+      lapsed: false
+      validation:
+      - third-party auditor
+      categories: []
+      scope:
+      - the company’s global operations
+    - product: Certified Against Fraud
+      product_type: Certified Against Fraud
+      standard: TAG Certified Against Fraud (CAF)
+      lapsed: false
+      validation:
+      - third-party auditor
+      categories:
+      - Intermediary
+      scope:
+      - the company’s global operations
+    - product: Certified Against Malvertising
+      product_type: Certified Against Malvertising
+      standard: TAG Certified Against Malvertising (CAM)
+      lapsed: false
+      validation:
+      - third-party auditor
+      categories:
+      - Intermediary
+      scope:
+      - the company’s global operations
+    - product: Certified For Transparency
+      product_type: Certified For Transparency
+      standard: TAG Certified For Transparency (CFT)
+      lapsed: false
+      validation:
+      - TAG Validation
+      categories:
+      - Intermediary
+      scope: []
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-tag-certified-ad-fraud.py
+  first_seen: '2026-10-23'
 source: https://fivetran.com/docs/activations/destinations/available-destinations/microsoft-advertising
