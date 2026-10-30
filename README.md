@@ -1,4 +1,4 @@
-# Microsoft Advertising (microsoft-advertising)
+# Microsoft Advertising
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,72 +64,115 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Microsoft Advertising provides APIs for managing ad campaigns, reporting on performance, and bulk operations across the Microsoft Advertising network including Bing, MSN, and partner sites.
+Microsoft Advertising provides APIs for managing ad campaigns, reporting on performance, and bulk operations across the Microsoft Advertising network including Bing, MSN, and partner sites. The platform offers programmatic access to campaign management, reporting, and bulk operations services for advertisers and developers.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/microsoft-advertising/refs/heads/main/apis.yml)
+**Areas:** Advertising · Analytics · Bing Ads · Bulk Operations · Campaigns · Microsoft · Reporting
 
-## Tags:
+## Microsoft Advertising on APIs.io
 
- - Advertising, Campaigns, Bing Ads, Reporting, Analytics
+Everything profiled for Microsoft Advertising is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/microsoft-advertising/](https://apis.io/providers/microsoft-advertising/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (3)
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-04-28
+- [Microsoft Advertising Campaign Management API](https://apis.io/apis/microsoft-advertising/campaign-management-api/) — The Microsoft Advertising Campaign Management API enables programmatic management of advertising campaigns, ad groups, ads, keywords, and targeting.…
+- [Microsoft Advertising Reporting API](https://apis.io/apis/microsoft-advertising/reporting-api/) — The Microsoft Advertising Reporting API provides access to performance reports for campaigns, ad groups, ads, and keywords. Developers can request reports…
+- [Microsoft Advertising Bulk API](https://apis.io/apis/microsoft-advertising/bulk-api/) — The Microsoft Advertising Bulk API enables efficient management of large-scale advertising campaigns through batch upload and download operations. It…
 
-## APIs
+### Published properties
 
-### Microsoft Advertising Campaign Management API
-Programmatic management of advertising campaigns, ad groups, ads, keywords, and targeting.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**Human URL:** [https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference](https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference)
+#### GraphQL (1)
 
-#### Tags:
+GraphQL schemas.
 
- - Advertising, Campaigns, Bing Ads
+- [Moved to /providers/microsoft-advertising/](https://apis.io/graphqls/microsoft-advertising/microsoft-advertising-graphql/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://learn.microsoft.com/en-us/advertising/campaign-management-service/campaign-management-service-reference)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Microsoft Advertising Reporting API
-Access to performance reports for campaigns, ad groups, ads, and keywords.
+- [Microsoft Advertising Domain Security](https://apis.io/security/microsoft-advertising/microsoft-advertising-domain-security/)
+- [Microsoft Advertising Vulnerability Disclosure](https://apis.io/security/microsoft-advertising/microsoft-advertising-vulnerability-disclosure/)
 
-**Human URL:** [https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference](https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference)
+#### Plans and pricing (1)
 
-#### Tags:
+Published plans, tiers and prices.
 
- - Advertising, Reporting, Analytics
+- [Microsoft Advertising Plans Pricing](https://apis.io/plans/microsoft-advertising/microsoft-advertising-plans-pricing/)
 
-#### Properties
+#### Rate limits (1)
 
-- [Documentation](https://learn.microsoft.com/en-us/advertising/reporting-service/reporting-service-reference)
+Published request limits.
 
-### Microsoft Advertising Bulk API
-Efficient management of large-scale advertising campaigns through batch operations.
+- [Microsoft Advertising Rate Limits](https://apis.io/rate-limits/microsoft-advertising/microsoft-advertising-rate-limits/)
 
-**Human URL:** [https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference](https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference)
+#### FinOps (1)
 
-#### Tags:
+What the API costs to run, by operation.
 
- - Advertising, Bulk Operations, Batch Processing
+- [Microsoft Advertising Finops](https://apis.io/finops/microsoft-advertising/microsoft-advertising-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://learn.microsoft.com/en-us/advertising/bulk-service/bulk-service-reference)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [Portal](https://ads.microsoft.com/)
-- [Developer Portal](https://learn.microsoft.com/en-us/advertising/)
-- [SDKs](https://learn.microsoft.com/en-us/advertising/guides/client-libraries)
-- [Authentication](https://learn.microsoft.com/en-us/advertising/guides/authentication-oauth)
-- [Terms of Service](https://www.microsoft.com/en-us/legal/terms-of-use)
-- [Privacy Policy](https://privacy.microsoft.com/en-us/privacystatement)
+- [Website](https://www.microsoft.com/)
 - [Support](https://support.microsoft.com/)
+- [Blog](https://about.ads.microsoft.com/en-us/blog/rss)
+- [Terms of service](https://www.microsoft.com/en-us/legal/terms-of-use)
+- [Privacy policy](https://privacy.microsoft.com/en-us/privacystatement)
+- [GitHub](https://github.com/bingads)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 25.6** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 45.2 |
+| Access clarity | 28.9 |
+
+**Agent readiness 3.1** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 25.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/microsoft-advertising/](https://apis.io/providers/microsoft-advertising/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Microsoft Advertising: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/microsoft-advertising/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
